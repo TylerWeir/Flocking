@@ -17,7 +17,7 @@ class Vector2D():
         newtheta = math.atan2(self.y, self.x)
         return 180 - math.degrees(newtheta)
 
-    def normalize(self):
+    def unitize(self):
         """Normalizes the vector to magnitude zero."""
         magnitude = self.calc_magnitude()
         if magnitude != 0:
