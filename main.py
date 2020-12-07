@@ -12,7 +12,7 @@ from pygame.locals import (
 pygame.init()
 
 # Create the screen object
-pygame.display.set_caption("Flocking")
+pygame.display.set_caption("Flocking Simulation")
 screen = pygame.display.set_mode((1000, 1000))
 background = pygame.Surface(screen.get_size())
 background.fill((0, 0, 0))
@@ -21,7 +21,7 @@ background.fill((0, 0, 0))
 boids = pygame.sprite.Group()
 
 # Populate with boids
-numBoids = 40
+numBoids = 75
 for i in range(numBoids):
     position = (randint(0, 1000), randint(0, 1000))
     boids.add(Boid(position))

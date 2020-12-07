@@ -73,7 +73,8 @@ class Boid(pygame.sprite.Sprite):
         # blit the image onto the Surface
         boidSurf.fill((255, 0, 255))
         boidSurf.set_colorkey((255, 0, 255))
-        pygame.draw.polygon(boidSurf, (143, 200, 207), ((4, 0), (0, 16), (8, 16)))
+        triangle_points = ((4, 0), (0, 16), (8, 16))
+        pygame.draw.polygon(boidSurf, (143, 200, 207), triangle_points)
 
         return boidSurf
 
@@ -84,17 +85,15 @@ class Boid(pygame.sprite.Sprite):
     def calc_avoid(self, boids):
         """Returns the avoid accerlation"""
         avoidAccel = Vector2D(0, 0)
-        range = 50
         position = self.rect.center
 
         # Add up all the separation vectors
         for boid in boids:
-            if math.dist(position, boid.rect.center) < 3000:
-                xdiff = position[0]-boid.rect.center[0]
-                ydiff = position[1]-boid.rect.center[1]
-                diff = Vector2D(xdiff, ydiff)
-                diff.scale(1/(diff.calc_magnitude()**2))
-                avoidAccel.add(diff)
+            xdiff = position[0]-boid.rect.center[0]
+            ydiff = position[1]-boid.rect.center[1]
+            diff = Vector2D(xdiff, ydiff)
+            diff.scale(1/(diff.calc_magnitude()**2))
+            avoidAccel.add(diff)
 
         avoidAccel.scale(self.avoidWeight)
         return avoidAccel
