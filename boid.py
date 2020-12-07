@@ -20,7 +20,7 @@ class Boid(pygame.sprite.Sprite):
         self.sightRange = 150
         self.max_acceleration = 0.1
         self.alignWeight = 1/36
-        self.avoidWeight = 1/15
+        self.avoidWeight = 0.5
         self.apprachWeight = 1/100
 
     def update(self, neighborBoids):
@@ -84,16 +84,16 @@ class Boid(pygame.sprite.Sprite):
     def calc_avoid(self, boids):
         """Returns the avoid accerlation"""
         avoidAccel = Vector2D(0, 0)
-        range = 40
+        range = 50
         position = self.rect.center
 
         # Add up all the separation vectors
         for boid in boids:
-            if math.dist(position, boid.rect.center) < range:
+            if math.dist(position, boid.rect.center) < 3000:
                 xdiff = position[0]-boid.rect.center[0]
                 ydiff = position[1]-boid.rect.center[1]
                 diff = Vector2D(xdiff, ydiff)
-                diff.scale(1/(diff.calc_magnitude()))
+                diff.scale(1/(diff.calc_magnitude()**2))
                 avoidAccel.add(diff)
 
         avoidAccel.scale(self.avoidWeight)
