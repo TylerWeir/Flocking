@@ -5,6 +5,7 @@ from pygame.locals import (
     K_ESCAPE,
     K_SPACE,
     KEYDOWN,
+    MOUSEBUTTONUP,
     QUIT,
 )
 
@@ -21,7 +22,7 @@ background.fill((0, 0, 0))
 boids = pygame.sprite.Group()
 
 # Populate with boids
-numBoids = 75
+numBoids = 30
 for i in range(numBoids):
     position = (randint(0, 1000), randint(0, 1000))
     boids.add(Boid(position))
@@ -36,6 +37,9 @@ while running:
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False
+        elif event.type == MOUSEBUTTONUP:
+            pos = pygame.mouse.get_pos()
+            boids.add(Boid(pos))
         elif event.type == KEYDOWN:
             if event.key == K_ESCAPE:
                 running = False
